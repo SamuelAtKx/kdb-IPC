@@ -1,22 +1,33 @@
-/q authentication.q
-
-.perm.authPath: `:Resources/.userAuth
+.perm.encrypt: -33!
 .perm.auth: ([]username:`symbol$(); password:())
+
+.perm.authPath: `$":", .z.x 0 / `:Resources/.userAuth.txt
+.perm.txt2auth: {[texts]
+    columns: ":" vs/: texts;
+    flip `username`password!(`$columns[;0] ; "X" $/: 2 cut/: columns[;1])
+ }
+.perm.auth2txt: {[]
+    ":" sv/: flip exec (string username; raze each string password) from .perm.auth
+ }
+
 .perm.load: {
     $[.perm.authPath ~ key .perm.authPath;
-        .perm.auth: get .perm.authPath;
+        .perm.auth: .perm.txt2auth read0 .perm.authPath;
         [
             0N!".userAuth file notFound: creating new one.";
-            .[.perm.authPath; (); :; .perm.auth];
+            h:hopen .perm.authPath; hclose h;
             0N!".userAuth file created."
         ]
     ];
  }
-.perm.save: { .perm.authPath set .perm.auth }
-.perm.encrypt: -33!
+.perm.save: { .perm.authPath 0: .perm.auth2txt[] }
+
 .perm.Add: {[name;pass] `.perm.auth upsert (name; .perm.encrypt pass); .perm.save[] }
 .perm.Remove: {[name] delete from `.perm.auth where username=name; .perm.save[] }
 
 .z.pw: {[name;pass] exec 0 < count i from .perm.auth where username=name, (.perm.encrypt pass) in password }
 
 .perm.load[]
+
+/
+q Server/authentication.q Server/Resources/userAuth.txt -p 6000
