@@ -25,7 +25,8 @@
 .perm.Add: {[name;pass] `.perm.auth upsert (name; .perm.encrypt pass); .perm.save[] }
 .perm.Remove: {[name] delete from `.perm.auth where username=name; .perm.save[] }
 
-.z.pw: {[name;pass] exec 0 < count i from .perm.auth where username=name, (.perm.encrypt pass) in password }
+.perm.pw: {[name;pass] exec 0 < count i from .perm.auth where username=name, (.perm.encrypt pass) in password }
+.z.pw: {[name;pass] .perm.pw[name;pass] }
 
 .perm.load[]
 
