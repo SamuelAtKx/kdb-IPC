@@ -35,4 +35,4 @@ queryLog: ([]user:`symbol$(); handle:`int$(); hostname:`symbol$(); time:`s#`time
  }
 
 /
-q Server/logging.q Server/Resources/userAuth.txt -p 6000 -e 1
+q Server/logging.q Server/Resources/userAuth.txt -p 6000
