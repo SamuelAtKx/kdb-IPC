@@ -16,9 +16,11 @@ queryLog: ([]user:`symbol$(); handle:`int$(); hostname:`symbol$(); time:`s#`time
     isGranted
  }
 .logging.po: {[h]
-    userIp: h ".z.a";
-    update handle: h, hostname: .Q.host userIp, ip: `$"." sv string "i"$0x0 vs userIp from `accessLog where i = last i;
-    `openConn insert (exec last user from accessLog where i = last i; h; .z.p);
+    // trap if client connection was aborted before completion of po
+    if[not null userIp: @[h; ".z.a"; {(::)}];
+        update handle: h, hostname: .Q.host userIp, ip: `$"." sv string "i"$0x0 vs userIp from `accessLog where i = last i;
+        `openConn insert (exec last user from accessLog where i = last i; h; .z.p)
+    ]
  }
 .logging.pc: {[h] delete from `openConn where handle=h }
 .logging.ps: {
