@@ -17,8 +17,8 @@ An example using the project itself: ![SlowSubscribers](Images/SlowSubscriber.pn
 
 ## 6. What happens if you open a connection from a client to kdb server while the server is busy? Is there anything you can do about this?
 - If client simply open a connection by "`hopen <port>`", it will wait until the server responds. So if server is always busy, then the client is simply always blocked by `hopen`.
-- This can be alleviated by setting timeout such as "`hopen (<port>; <timeout>)`" (See line 8 in [chatClient.q](../Client/chatClient.q)).
-- Meanwhile, server needs to trap error for any IPC calls in the execution path of `.z.po` since there was an error about invalid IPC handle (See line 19 [chatServer.q](../Server/logging.q)).
+- This can be alleviated by setting timeout such as "`hopen (<port>; <timeout>)`" (See line 8 in [chatClient.q](Client/chatClient.q)).
+- Meanwhile, server needs to trap error for any IPC calls in the execution path of `.z.po` since there was an error about invalid IPC handle (See line 19 [chatServer.q](Server/logging.q)).
   - It seems like even there is a timeout set on client side (i.e. no connecion established), there are some chances that the server will still execute `.z.po`.
 
 ## 7. I want to set up a gateway process that can send an incoming query onto multiple HDBs, and then serve other queries while it waits for all the HDBs to respond. What is this behavior known as? What function in the .z namespace needs overwritten for this to happen?
