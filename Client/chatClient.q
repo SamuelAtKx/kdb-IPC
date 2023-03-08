@@ -5,8 +5,8 @@
     if[null .chat.h; '`$"No connection to the server. Please use .chat.Joins to connect first."]
  }
 .chat.Joins: {[user; pass]
-    .chat.h: @[hopen; 
-        `$(string .server.address),":",(string user),":",pass; 
+    .chat.h: @[value; 
+        (hopen; (`$(string .server.address),":",(string user),":",pass; 300)); 
         {-2 "Could not connect to the server due to error: ", x; 0Ni}
     ]
  }
@@ -31,3 +31,7 @@ q Client/chatClient.q
 .chat.Joins[`samuel; "1234"]
 .chat.Joins[`kelly; "1234"]
 .chat.Joins[`lawing; "dllm"]
+
+.chat.SendMsg[`all; "hi guys"]
+
+system "ping 127.0.0.1 -n 60 > nul";

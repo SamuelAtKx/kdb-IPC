@@ -56,4 +56,6 @@ system"l ", .u.rwd, "/monitoring.q"
 .z.pg: { if[.server.pg x; :value x] }
 
 /
-q Server/chatServer.q Server/Resources/userAuth.txt -p 6000 -t 1000 -e 1
+q Server/chatServer.q Server/Resources/userAuth.txt -p 6000 -t 1000 -e 1 -g 1
+
+system "ping 127.0.0.1 -n 30 > nul";
