@@ -30,8 +30,8 @@ q Client/chatClient.q
 
 .chat.Joins[`samuel; "1234"]
 .chat.Joins[`kelly; "1234"]
-.chat.Joins[`lawing; "dllm"]
+.chat.Joins[`lawing; "1234"]
 
 .chat.SendMsg[`all; "hi guys"]
 
-system "ping 127.0.0.1 -n 60 > nul";
+system "ping 127.0.0.1 -n 3600 > nul";
